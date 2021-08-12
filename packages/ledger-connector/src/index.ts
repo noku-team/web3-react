@@ -1,7 +1,7 @@
 import { ConnectorUpdate } from '@web3-react/types'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import Web3ProviderEngine from 'web3-provider-engine'
-import { ledgerEthereumBrowserClientFactoryAsync } from '@0x/subproviders/lib/src' // https://github.com/0xProject/0x-monorepo/issues/1400
+import { AccountFetchingConfigs, ledgerEthereumBrowserClientFactoryAsync } from '@0x/subproviders/lib/src' // https://github.com/0xProject/0x-monorepo/issues/1400
 import { LedgerSubprovider } from '@0x/subproviders/lib/src/subproviders/ledger' // https://github.com/0xProject/0x-monorepo/issues/1400
 import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
 import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider' // https://github.com/0xProject/0x-monorepo/issues/1400
@@ -20,7 +20,7 @@ export class LedgerConnector extends AbstractConnector {
   private readonly url: string
   private readonly pollingInterval?: number
   private readonly requestTimeoutMs?: number
-  private readonly accountFetchingConfigs?: any
+  private readonly accountFetchingConfigs?: AccountFetchingConfigs
   private readonly baseDerivationPath?: string
 
   private provider: any
@@ -72,8 +72,14 @@ export class LedgerConnector extends AbstractConnector {
     return this.chainId
   }
 
-  public async getAccount(): Promise<null> {
-    return this.provider._providers[0].getAccountsAsync(1).then((accounts: string[]): string => accounts[0])
+  public async getAccount(accountIndex: number = 0): Promise<null | string> {
+    const ledgerSubprovider = this.getLedgerSubprovider();
+    const account = await ledgerSubprovider.getAccountAsync(accountIndex);
+    return account;
+  }
+
+  private getLedgerSubprovider(): LedgerSubprovider {
+    return this.provider._providers[0]
   }
 
   public deactivate() {
