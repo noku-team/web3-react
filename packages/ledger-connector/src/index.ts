@@ -73,9 +73,9 @@ export class LedgerConnector extends AbstractConnector {
   }
 
   public async getAccount(accountIndex: number = 0): Promise<null | string> {
-    const ledgerSubprovider = this.getLedgerSubprovider();
-    const account = await ledgerSubprovider.getAccountAsync(accountIndex);
-    return account;
+    const ledgerSubprovider = this.getLedgerSubprovider()
+    const account = await ledgerSubprovider.getAccountAsync(accountIndex)
+    return account
   }
 
   public getLedgerSubprovider(): LedgerSubprovider {
