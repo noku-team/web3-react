@@ -225,10 +225,12 @@ export function useWeb3ReactManager(): Web3ReactManagerReturn {
         throw new Error("Connector doesn't exist yet")
       }
       const accountAtIndex = await connector.getAccount(accountIndex)
-      if (accountAtIndex) {
-        const account = normalizeAccount(accountAtIndex)
-        dispatch({ type: ActionType.UPDATE, payload: { account } })
+      if (!accountAtIndex) {
+        throw new Error("Something went wrong when getting account index: " + accountIndex)
       }
+      const account = normalizeAccount(accountAtIndex)
+      dispatch({ type: ActionType.UPDATE, payload: { account } })
+      return account
     },
     [connector]
   )
