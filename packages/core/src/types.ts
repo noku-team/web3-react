@@ -13,6 +13,7 @@ export interface Web3ReactManagerReturn extends Web3ReactManagerFunctions {
   account?: null | string
 
   error?: Error
+  changeAccountIndex: (accountIndex: number) => Promise<void>
 }
 
 export interface Web3ReactContextInterface<T = any> extends Web3ReactManagerFunctions {
@@ -23,4 +24,5 @@ export interface Web3ReactContextInterface<T = any> extends Web3ReactManagerFunc
 
   active: boolean
   error?: Error
+  changeAccountIndex: (accountIndex: number) => Promise<void>
 }

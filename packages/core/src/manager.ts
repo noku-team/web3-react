@@ -207,14 +207,27 @@ export function useWeb3ReactManager(): Web3ReactManagerReturn {
     },
     [connector, error, onError]
   )
+
   const handleError = useCallback(
     (error: Error): void => {
       onError ? onError(error) : dispatch({ type: ActionType.ERROR, payload: { error } })
     },
     [onError]
   )
+
   const handleDeactivate = useCallback((): void => {
     dispatch({ type: ActionType.DEACTIVATE_CONNECTOR })
+  }, [])
+
+  const changeAccountIndex = useCallback(async (accountIndex: number) => {
+    if (!connector) {
+      throw new Error("Connector doesn't exist yet")
+    }
+    const accountAtIndex = await connector.getAccount(accountIndex)
+    if (accountAtIndex) {
+      const account = normalizeAccount(accountAtIndex);
+      dispatch({ type: ActionType.UPDATE, payload: { account } })
+    }
   }, [])
 
   // ensure that connectors which were set are deactivated
@@ -245,5 +258,5 @@ export function useWeb3ReactManager(): Web3ReactManagerReturn {
     }
   }, [connector, handleUpdate, handleError, handleDeactivate])
 
-  return { connector, provider, chainId, account, activate, setError, deactivate, error }
+  return { connector, provider, chainId, account, activate, setError, deactivate, error, changeAccountIndex }
 }

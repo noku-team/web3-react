@@ -78,7 +78,7 @@ export class LedgerConnector extends AbstractConnector {
     return account;
   }
 
-  private getLedgerSubprovider(): LedgerSubprovider {
+  public getLedgerSubprovider(): LedgerSubprovider {
     return this.provider._providers[0]
   }
 

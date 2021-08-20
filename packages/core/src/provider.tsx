@@ -25,6 +25,9 @@ export function createWeb3ReactRoot(key: string): (args: Web3ReactProviderArgume
     deactivate: () => {
       invariant(false, 'No <Web3ReactProvider ... /> found.')
     },
+    changeAccountIndex: () => {
+      invariant(false, 'No <Web3ReactProvider ... /> found.')
+    },
     active: false
   })
   CONTEXTS[key].displayName = `Web3ReactContext - ${key}`
@@ -42,7 +45,8 @@ export function createWeb3ReactRoot(key: string): (args: Web3ReactProviderArgume
       setError,
       deactivate,
 
-      error
+      error,
+      changeAccountIndex
     } = useWeb3ReactManager()
 
     const active = connector !== undefined && chainId !== undefined && account !== undefined && !!!error
@@ -65,7 +69,8 @@ export function createWeb3ReactRoot(key: string): (args: Web3ReactProviderArgume
       deactivate,
 
       active,
-      error
+      error,
+      changeAccountIndex
     }
 
     return <Provider value={web3ReactContext}>{children}</Provider>
