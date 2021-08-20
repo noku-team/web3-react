@@ -226,7 +226,7 @@ export function useWeb3ReactManager(): Web3ReactManagerReturn {
       }
       const accountAtIndex = await connector.getAccount(accountIndex)
       if (!accountAtIndex) {
-        throw new Error("Something went wrong when getting account index: " + accountIndex)
+        throw new Error('Something went wrong when getting account index: ' + accountIndex)
       }
       const account = normalizeAccount(accountAtIndex)
       dispatch({ type: ActionType.UPDATE, payload: { account } })
