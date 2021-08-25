@@ -1,10 +1,13 @@
 import { ConnectorUpdate } from '@web3-react/types'
 import { AbstractConnector } from '@web3-react/abstract-connector'
 import Web3ProviderEngine from 'web3-provider-engine'
-import { AccountFetchingConfigs, ledgerEthereumBrowserClientFactoryAsync } from '@0x/subproviders/lib/src' // https://github.com/0xProject/0x-monorepo/issues/1400
-import { LedgerSubprovider } from '@0x/subproviders/lib/src/subproviders/ledger' // https://github.com/0xProject/0x-monorepo/issues/1400
+// import { AccountFetchingConfigs, ledgerEthereumBrowserClientFactoryAsync } from '@0x/subproviders/lib/src' // https://github.com/0xProject/0x-monorepo/issues/1400
+
+import {AccountFetchingConfigs, ledgerEthereumBrowserClientFactoryAsync, LedgerSubprovider, RPCSubprovider} from "0x-tools/subproviders/lib/src";
+
+// import { LedgerSubprovider } from '@0x/subproviders/lib/src/subproviders/ledger' // https://github.com/0xProject/0x-monorepo/issues/1400
 import CacheSubprovider from 'web3-provider-engine/subproviders/cache.js'
-import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider' // https://github.com/0xProject/0x-monorepo/issues/1400
+// import { RPCSubprovider } from '@0x/subproviders/lib/src/subproviders/rpc_subprovider' // https://github.com/0xProject/0x-monorepo/issues/1400
 
 interface LedgerConnectorArguments {
   chainId: number
